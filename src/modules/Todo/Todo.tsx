@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Container } from "../../components/Layout/Container";
 import { Title } from "../../components/text";
 import { TODO_DATA } from "../../data/data";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { Task } from "./components/Task";
 
 export const Todo: React.FC = () => {
-  const [todo, setTodo] = useState(TODO_DATA);
+  const {item: todo, saveItem} = useLocalStorage('TODO_REACT_TS', TODO_DATA);
   return (
     <Container>
       <Title>Todo.tsx</Title>

@@ -1,15 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
   background-color: orange;
+  font-size: 24px;
 `
 
-export const FunctionComponent = ({message, onChange}: {message: string, onChange: any}) => {
+export const FunctionComponent = ({message}: {message: string}) => {
   const [contador, setContador] = useState<number>(0);
+  const [contador2, setContador2] = useState<number>(0);
+  // const [suma, setSuma] = useState<number>(0);
+
+  const suma = useMemo(() => {
+    if(contador % 2 === 0 && contador2 % 2 === 0) {
+      return `son numeros pares y sumados son ${contador + contador2}`;
+    }
+    return 'No son numero pares';
+  }, [contador, contador2])
+
   const execute = () => {
-    setContador(contador + 1);
-    onChange(`el componente message: ${message}, ha cambiado su valor, ${contador + 1}`);
+    setContador((c) => c + 1);
   }
 
   useEffect(() => {
@@ -19,18 +29,22 @@ export const FunctionComponent = ({message, onChange}: {message: string, onChang
     }
   }, []);
 
-  useEffect(() => {
-    if(contador) {
-      console.log(`-> function component el contador se ha actualizado`, contador)
+  /* useEffect(() => {
+    if(contador % 2 === 0 && contador2 % 2 === 0) {
+      setSuma(contador + contador2)
     }
-  }, [contador]);
+  }, [contador, contador2]); */
 
   return (
-    <div>
+    <div style={{fontSize: 24}}>
       {message}
       <Button onClick={execute}>
         contador {contador}
       </Button>
+      <Button onClick={() => setContador2((c) => c + 3)}>
+        contador2 {contador2}
+      </Button>
+      SUMA: {suma}
     </div>
   )
 }
