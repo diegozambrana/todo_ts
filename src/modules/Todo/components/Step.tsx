@@ -1,4 +1,4 @@
-import { BaseSyntheticEvent, FC } from "react"
+import { FC } from "react"
 import styled from "styled-components"
 import { COLOR } from "../../../utils/theme"
 import { StepType } from "../../../types/Step"
@@ -14,7 +14,7 @@ const StepContainer = styled.div`
 
 type StepProp = {
   step: StepType,
-  onClickStepCompleted(value: boolean): void,
+  onClickStepCompleted(idStep: string): void,
 }
 
 export const Step: FC<StepProp> = ({step, onClickStepCompleted}) => {
@@ -24,7 +24,7 @@ export const Step: FC<StepProp> = ({step, onClickStepCompleted}) => {
       <input
         type="checkbox"
         checked={step.completed}
-        onChange={(e: BaseSyntheticEvent) => onClickStepCompleted(e.target.checked)}
+        onChange={() => onClickStepCompleted(step.id)}
       />
     </StepContainer>
   )
