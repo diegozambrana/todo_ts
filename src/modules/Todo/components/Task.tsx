@@ -2,9 +2,9 @@ import { BaseSyntheticEvent, FC, useContext, useState } from "react"
 import styled from "styled-components"
 import { Button } from "../../../components/Button"
 import { Input } from "../../../components/form/Input"
+import { Box } from "../../../components/Layout/Box"
 import { Text } from "../../../components/text"
 import { TodoContext } from "../../../Context/TodoContext"
-import { StepType } from "../../../types/Step"
 import { TaskType } from "../../../types/Task"
 import { uuid } from "../../../utils"
 import { COLOR } from "../../../utils/theme"
@@ -12,6 +12,7 @@ import { Step } from "./Step"
 
 const AddStepContainer = styled.div`
   display: flex;
+  align-items: flex-end;
 `
 
 const TaskContainer = styled.div`
@@ -39,24 +40,19 @@ const TaskDetail = styled.div`
 
 type TaskProps = {
   task: TaskType,
-  onClickTaskCompleted(idTask: string): void,
-  onClickStepCompleted(idTask: string, idStep: string): void,
-  onClickRemove(idTask: string): void,
-  onAddStep(idTask: string, step: StepType): void,
 }
 
-export const Task: FC<TaskProps> = ({
-  task,
-  onClickTaskCompleted,
-  onClickStepCompleted,
-  onClickRemove,
-  onAddStep,
-}) =>{
+export const Task: FC<TaskProps> = ({ task }) =>{
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [newStep, setNewStep] = useState<string>('');
-  const {counter} = useContext(TodoContext);
+  const {
+    removeTask,
+    onCheckTask,
+    onAddStep,
+  } = useContext(TodoContext);
 
-  const handleAddStep = () => {
+  const handleAddStep = (e: BaseSyntheticEvent) => {
+    e.preventDefault();
     onAddStep(task.id, {
       id: uuid(),
       name: newStep,
@@ -73,12 +69,12 @@ export const Task: FC<TaskProps> = ({
           onClick={() => setShowDetails((sd: boolean) => !sd)}
         />
         <Text style={{flex: 1}}>
-          {task.name} {counter}
+          {task.name}
         </Text>
         <input
           type="checkbox"
           checked={task.completed}
-          onChange={(e: BaseSyntheticEvent) => onClickTaskCompleted(task.id)}
+          onChange={() => onCheckTask(task.id)}
         />
       </TaskWrapper>
       {showDetails && (
@@ -87,21 +83,24 @@ export const Task: FC<TaskProps> = ({
             <Step
               step={step}
               key={step.id}
-              onClickStepCompleted={(idStep: string) => onClickStepCompleted(task.id, idStep)}
+              taskId={task.id}
             />
           ))}
-          <AddStepContainer>
-            <div style={{flex: "1 1 0%"}}>
-              <Input value={newStep} onChange={(value) => setNewStep(value)} placeholder="Agregar nuevo paso"/>
-            </div>
-            <Button onClick={handleAddStep} small>Agregar Paso</Button>
-          </AddStepContainer>
+          <form onSubmit={handleAddStep}>
+            <AddStepContainer>
+              <div style={{flex: "1 1 0%"}}>
+                <Input value={newStep} onChange={(value) => setNewStep(value)} placeholder="Agregar nuevo paso"/>
+              </div>
+              <Box ml={0.5}>
+                <Button type="submit" small>Agregar Paso</Button>
+              </Box>
+            </AddStepContainer>
+          </form>
           <div>
             <Text bold my={1}>Descripción:</Text>
             <Text mb={1}>{task.description}</Text>
-
             <Button
-              onClick={() => onClickRemove(task.id)}
+              onClick={() => removeTask(task.id)}
               variant="danger"
             >Eliminar</Button>
           </div>

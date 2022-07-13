@@ -1,8 +1,9 @@
-import { FC } from "react"
+import { FC, useContext } from "react"
 import styled from "styled-components"
 import { COLOR } from "../../../utils/theme"
 import { StepType } from "../../../types/Step"
 import { Text } from "../../../components/text"
+import { TodoContext } from "../../../Context/TodoContext"
 
 const StepContainer = styled.div`
   background-color: ${COLOR.light};
@@ -14,17 +15,19 @@ const StepContainer = styled.div`
 
 type StepProp = {
   step: StepType,
-  onClickStepCompleted(idStep: string): void,
+  taskId: string,
 }
 
-export const Step: FC<StepProp> = ({step, onClickStepCompleted}) => {
+export const Step: FC<StepProp> = ({step, taskId}) => {
+  const { onCheckStep } = useContext(TodoContext);
+
   return (
     <StepContainer>
       <Text style={{flex: 1}}>{step.name}</Text>
       <input
         type="checkbox"
         checked={step.completed}
-        onChange={() => onClickStepCompleted(step.id)}
+        onChange={() => onCheckStep(taskId, step.id)}
       />
     </StepContainer>
   )

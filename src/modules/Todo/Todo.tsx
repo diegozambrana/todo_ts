@@ -11,10 +11,6 @@ import { Task } from "./components/Task";
 export const Todo: React.FC = () => {
   const {
     todoData,
-    removeTask,
-    onCheckTask,
-    onCheckStep,
-    onAddStep,
     setIsModalAddTaskOpen,
     isModalAddTaskOpen,
     addTask
@@ -27,10 +23,6 @@ export const Todo: React.FC = () => {
         <Task
           task={task}
           key={task.id}
-          onClickRemove={removeTask}
-          onClickTaskCompleted={onCheckTask}
-          onClickStepCompleted={onCheckStep}
-          onAddStep={onAddStep}
         />
       ))}
       <Box mt={1}>
