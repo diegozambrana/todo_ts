@@ -7,6 +7,7 @@ interface AppContextInterface {
   todoData?: TaskType[];
   [key: string]: any
 }
+
 export const TodoContext = React.createContext<AppContextInterface>({todoData: []});
 
 export const ToDoProvider =(props: any) => {

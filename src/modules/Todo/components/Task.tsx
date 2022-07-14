@@ -1,10 +1,11 @@
-import { BaseSyntheticEvent, FC, useContext, useState } from "react"
+import { BaseSyntheticEvent, FC, useState } from "react"
+import { useDispatch } from "react-redux"
 import styled from "styled-components"
 import { Button } from "../../../components/Button"
 import { Input } from "../../../components/form/Input"
 import { Box } from "../../../components/Layout/Box"
 import { Text } from "../../../components/text"
-import { TodoContext } from "../../../Context/TodoContext"
+import { removeTask, onCheckTask, onAddStep } from "../../../redux/todo"
 import { TaskType } from "../../../types/Task"
 import { uuid } from "../../../utils"
 import { COLOR } from "../../../utils/theme"
@@ -45,19 +46,15 @@ type TaskProps = {
 export const Task: FC<TaskProps> = ({ task }) =>{
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [newStep, setNewStep] = useState<string>('');
-  const {
-    removeTask,
-    onCheckTask,
-    onAddStep,
-  } = useContext(TodoContext);
+  const dispatch = useDispatch();
 
   const handleAddStep = (e: BaseSyntheticEvent) => {
     e.preventDefault();
-    onAddStep(task.id, {
+    dispatch(onAddStep({idTask: task.id, newStep: {
       id: uuid(),
       name: newStep,
       completed: false,
-    });
+    }}));
     setNewStep('');
   }
 
@@ -74,7 +71,7 @@ export const Task: FC<TaskProps> = ({ task }) =>{
         <input
           type="checkbox"
           checked={task.completed}
-          onChange={() => onCheckTask(task.id)}
+          onChange={() => dispatch(onCheckTask({idTask: task.id}))}
         />
       </TaskWrapper>
       {showDetails && (
@@ -100,7 +97,7 @@ export const Task: FC<TaskProps> = ({ task }) =>{
             <Text bold my={1}>Descripción:</Text>
             <Text mb={1}>{task.description}</Text>
             <Button
-              onClick={() => removeTask(task.id)}
+              onClick={() => dispatch(removeTask({idTask: task.id}))}
               variant="danger"
             >Eliminar</Button>
           </div>

@@ -5,7 +5,6 @@ import { Button } from '../../../components/Button';
 import { TextArea } from '../../../components/form/TextArea';
 import { Input } from '../../../components/form/Input';
 import styled from 'styled-components';
-import { TodoContext } from '../../../Context/TodoContext';
 
 const AddTaskContainer = styled.div`
   padding: 0.5rem;
@@ -25,7 +24,6 @@ interface AddTaskType {
 
 export const AddTask: FC<AddTaskType> = ({onCancel, onAddTask}) => {
   const [data, setData] = React.useState({name: '', description: ''});
-  const {counter} = useContext(TodoContext);
 
   const handleOnAccept = () => {
     onAddTask({
@@ -39,7 +37,7 @@ export const AddTask: FC<AddTaskType> = ({onCancel, onAddTask}) => {
 
   return (
     <AddTaskContainer>
-      <Text bold>Nueva Tarea {counter}</Text>
+      <Text bold>Nueva Tarea</Text>
       <Input
         placeholder={'Nueva Tarea'}
         value={data.name}

@@ -1,20 +1,20 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useContext, useState } from "react";
 import { Button } from "../../components/Button";
 import { Box } from "../../components/Layout/Box";
 import { Container } from "../../components/Layout/Container";
 import { Modal } from "../../components/modal";
 import { Title } from "../../components/text";
-import { RootState } from "../../redux/configureStore";
+import { TodoContext } from "../../Context/TodoContext";
 import { AddTask } from "./components/AddTask";
 import { Task } from "./components/Task";
-import { addTask, setIsModalAddTaskOpen } from '../../redux/todo'
-import { useDispatch } from "react-redux";
-import { TaskType } from "../../types/Task";
 
 export const Todo: React.FC = () => {
-  const { todoData, isModalAddTaskOpen } = useSelector((s: RootState) => s.todo);
-  const dispatch = useDispatch()
+  const {
+    todoData,
+    setIsModalAddTaskOpen,
+    isModalAddTaskOpen,
+    addTask
+  } = useContext(TodoContext);
 
   return (
     <Container>
@@ -26,15 +26,15 @@ export const Todo: React.FC = () => {
         />
       ))}
       <Box mt={1}>
-        <Button onClick={() => dispatch(setIsModalAddTaskOpen(true))}>Agregar Tarea</Button>
+        <Button onClick={() => setIsModalAddTaskOpen(true)}>Agregar Tarea</Button>
       </Box>
       <Modal
         isOpen={isModalAddTaskOpen}
-        onClose={() => dispatch(setIsModalAddTaskOpen(false))}
+        onClose={() => setIsModalAddTaskOpen(false)}
       >
         <AddTask
-          onCancel={() => dispatch(setIsModalAddTaskOpen(false))}
-          onAddTask={(task: TaskType) => dispatch(addTask(task))}
+          onCancel={() => setIsModalAddTaskOpen(false)}
+          onAddTask={addTask}
         />
       </Modal>
     </Container>
