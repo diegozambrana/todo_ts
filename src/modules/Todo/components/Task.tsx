@@ -86,7 +86,11 @@ export const Task: FC<TaskProps> = ({ task }) =>{
           <form onSubmit={handleAddStep}>
             <AddStepContainer>
               <div style={{flex: "1 1 0%"}}>
-                <Input value={newStep} onChange={(value) => setNewStep(value)} placeholder="Agregar nuevo paso"/>
+                <Input
+                  value={newStep}
+                  onChange={(event: BaseSyntheticEvent) => setNewStep(event.target.value)}
+                  placeholder="Agregar nuevo paso"
+                />
               </div>
               <Box ml={0.5}>
                 <Button type="submit" small>Agregar Paso</Button>

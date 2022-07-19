@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { BaseSyntheticEvent, FC, useContext } from 'react';
 import { uuid } from '../../../utils';
 import { Text } from '../../../components/text';
 import { Button } from '../../../components/Button';
@@ -41,7 +41,7 @@ export const AddTask: FC<AddTaskType> = ({onCancel, onAddTask}) => {
       <Input
         placeholder={'Nueva Tarea'}
         value={data.name}
-        onChange={(value: string) => { setData({...data, name: value}) }}
+        onChange={(event: BaseSyntheticEvent) => { setData({...data, name: event.target.value}) }}
       />
       <TextArea
         placeholder={'descripción nueva tarea'}
