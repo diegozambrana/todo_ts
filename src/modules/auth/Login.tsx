@@ -1,6 +1,7 @@
 import { BaseSyntheticEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { useLogin } from "../../api/login";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/form/Input";
 import { Box } from "../../components/Layout/Box";
@@ -17,9 +18,10 @@ const LoginContainer = styled.div`
 `
 
 export const Login = () => {
-  const dispatch = useDispatch()
+  const {login, login2, loading} = useLogin()
   const [loginData, setLoginData] = useState({username: '', password: ''})
   const [errors, setErrors] = useState({username: [], password: []});
+  const [error, setError] = useState('')
   const fields = {
     username: [VALIDATION.REQUIRED, VALIDATION.EMAIL],
     password: [VALIDATION.REQUIRED]
@@ -37,17 +39,24 @@ export const Login = () => {
     const newErrors: any = validate(loginData, fields);
     setErrors(newErrors);
     if(isValid(errors)){
-      console.log(`Los Datos son válidos`);
-      setToken('token_test');
-      dispatch(setActiveUser(true));
+      console.log(`----- Los Datos son válidos`);
+      // login2(loginData)
+      login(loginData)
+        .then((response: any) => {
+          console.log(`response`, response)
+        })
+        .catch((error: any) => {
+          console.log(`error`, error)
+          setError('Usuario o contraseña no válidos')
+        })
       
-      // TODO: metodo hacer el login
     }
   }
 
   return (
     <Container>
       <LoginContainer>
+        {error && <Box>{error}</Box>}
         <form onSubmit={onLogin}>
           <Input
               type="text"
@@ -69,7 +78,7 @@ export const Login = () => {
               errors={errors.password}
           />
           <Box mt={1}>
-            <Button type="submit">Indentificarse</Button>
+            <Button type="submit" disabled={loading}>Indentificarse</Button>
           </Box>
         </form>
       </LoginContainer>

@@ -1,25 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TaskType } from '../../types/Task';
 import { getItem, saveItem } from '../../utils/localStorage';
-
+import { postTodo } from '../../api/useTodo';
 const ITEM_NAME = 'TODO_TS_REDUX'
 
 export const todoSlice = createSlice({
   name: 'todo',
   initialState: {
-    todoData: getItem(ITEM_NAME, []),
+    todoData: [],
     isModalAddTaskOpen: false,
   },
   reducers: {
+    updateTodoData: (state: any, action: any) => {
+      state.todoData = action.payload;
+    },
     addTask: (state: any, action: any) => {
       state.todoData =  [...state.todoData, action.payload];
       state.isModalAddTaskOpen = false;
-      saveItem(ITEM_NAME, state.todoData);
+      postTodo(state.todoData);
     },
     removeTask: (state: any, action: any) => {
       const {idTask} = action.payload
       state.todoData = state.todoData.filter(((task: TaskType) => task.id !== idTask))
-      saveItem(ITEM_NAME, state.todoData);
+      postTodo(state.todoData);
     },
     onCheckTask: (state: any, action: any) => {
       const {idTask} = action.payload;
@@ -27,7 +30,7 @@ export const todoSlice = createSlice({
         ? {... task, completed: !task.completed}
         : task
       )
-      saveItem(ITEM_NAME, state.todoData);
+      postTodo(state.todoData);
     },
     onCheckStep: (state: any, action: any) => {},
     onAddStep: (state: any, action: any) => {
@@ -39,7 +42,7 @@ export const todoSlice = createSlice({
         }
         return task
       })
-      saveItem(ITEM_NAME, state.todoData);
+      postTodo(state.todoData);
     },
     setIsModalAddTaskOpen: (state: any, action: any) => {
       state.isModalAddTaskOpen = action.payload;
@@ -47,5 +50,5 @@ export const todoSlice = createSlice({
   },
 });
 
-export const { addTask, setIsModalAddTaskOpen, removeTask, onCheckTask, onAddStep } = todoSlice.actions;
+export const { addTask, setIsModalAddTaskOpen, removeTask, onCheckTask, onAddStep, updateTodoData } = todoSlice.actions;
 export default todoSlice.reducer;

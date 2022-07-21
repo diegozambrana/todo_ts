@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Button } from "../../components/Button";
 import { Box } from "../../components/Layout/Box";
@@ -11,10 +11,16 @@ import { Task } from "./components/Task";
 import { addTask, setIsModalAddTaskOpen } from '../../redux/todo'
 import { useDispatch } from "react-redux";
 import { TaskType } from "../../types/Task";
+import { useTodo } from "../../api/useTodo";
 
 export const Todo: React.FC = () => {
   const { todoData, isModalAddTaskOpen } = useSelector((s: RootState) => s.todo);
-  const dispatch = useDispatch()
+  const { loading } = useTodo();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // if(!todoData && !loading) getTodo();
+  }, [todoData, loading])
 
   return (
     <Container>
