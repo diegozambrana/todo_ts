@@ -9,6 +9,7 @@ import { getToken } from "../../utils/auth";
 
 export const RedirectRoute = ({children ,privatePath}: {children: any, privatePath?: boolean}) => {
     const [loading, setLoading] = useState(true);
+    console.log(`----Redirect`)
 
     const dispatch = useDispatch();
     const {activeUser} = useSelector((s: RootState) => s.auth)
@@ -27,9 +28,11 @@ export const RedirectRoute = ({children ,privatePath}: {children: any, privatePa
         setLoading(false);
     }, [])
 
-    if(loading) <div>loading...</div>
+    if(loading) return <div>loading...</div>
+    console.log(`--- here`)
 
     if(shouldShow) return children;
+    console.log(`--- here2`)
 
     return (
         <Navigate to={redirectPath} />

@@ -7,6 +7,7 @@ import { Register } from './modules/auth/Register';
 import { Todo } from './modules/Todo/Todo';
 
 function App() {
+  console.log(`----> App`)
   return (
     <div className="App">
       <BrowserRouter>

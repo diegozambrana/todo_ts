@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Button } from "../../components/Button";
 import { Box } from "../../components/Layout/Box";
@@ -18,9 +18,9 @@ export const Todo: React.FC = () => {
   const { loading } = useTodo();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // if(!todoData && !loading) getTodo();
-  }, [todoData, loading])
+  if(loading) {
+    return <div>...loading</div>
+  }
 
   return (
     <Container>
