@@ -33,12 +33,24 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "lint": "eslint ./src --ext=.ts,.tsx",
+    "lint:fix": "eslint --fix ./src --ext=.ts,.tsx",
+    "lint:quiet": "eslint ./src --quiet --ext=.ts,.tsx",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(ts|tsx)\"",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "npm run lint:fix",
+      "npm run lint",
+      "prettier --write"
     ]
   },
   "browserslist": {
@@ -54,6 +66,19 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^4.0.0"
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^4.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
   }
 }

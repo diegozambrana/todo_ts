@@ -1,20 +1,20 @@
-import { BaseSyntheticEvent, FC } from "react";
-import styled from "styled-components";
+import { BaseSyntheticEvent, FC } from 'react';
+import styled from 'styled-components';
 
 const InputContainer: FC<any> = styled.div`
   margin-top: 0.5rem;
-`
+`;
 const ErrorElement = styled.li`
   color: red;
-`
+`;
 
 const InputText = styled.input`
   box-sizing: border-box;
   width: 100%;
   padding: 0.5rem;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.25rem;
-`
+`;
 
 interface InputType {
   placeholder: string;
@@ -31,11 +31,11 @@ export const Input: FC<InputType> = ({
   onChange,
   type,
   inputProps,
-  errors
-}) => {
-  return (<InputContainer>
+  errors,
+}) => (
+  <InputContainer>
     <InputText
-      type={type || "text"}
+      type={type || 'text'}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
@@ -48,5 +48,5 @@ export const Input: FC<InputType> = ({
         ))}
       </ul>
     )}
-  </InputContainer> )
-}
+  </InputContainer>
+);

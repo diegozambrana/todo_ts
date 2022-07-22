@@ -4,11 +4,15 @@ export const todoSlice = createSlice({
   name: 'todo',
   initialState: { value: 0 },
   reducers: {
-    increment: (state: any) => { state.value += 1 },
-    decrement: (state: any) => { state.value -= 1 },
+    increment: (state: any) => {
+      state.value += 1;
+    },
+    decrement: (state: any) => {
+      state.value -= 1;
+    },
     setValue: (state: any, action: any) => {
-      console.log(`action`, action)
-      state.value = action.payload
+      console.log(`action`, action);
+      state.value = action.payload;
     },
   },
 });

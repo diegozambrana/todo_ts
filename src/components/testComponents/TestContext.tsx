@@ -6,11 +6,12 @@ interface AppContextInterface {
 
 export const AppContext = React.createContext<AppContextInterface | null>(null);
 
-export const ToDoProvider =(props: any) => {
-
-  return (
-    <AppContext.Provider value={{
-        counter: 0,
-    }}>{props.children}</AppContext.Provider>
-  );
-}
+export const ToDoProvider = (props: any) => (
+  <AppContext.Provider
+    value={{
+      counter: 0,
+    }}
+  >
+    {props.children}
+  </AppContext.Provider>
+);

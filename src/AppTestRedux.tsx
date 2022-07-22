@@ -1,10 +1,9 @@
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Todo } from './modules/Todo/Todo';
 import { RootState } from './redux/configureStore';
 // import { increment, decrement, setValue } from './redux/todo';
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
   // const {value} = useSelector((state: RootState) => state.todo);
 
@@ -19,6 +18,6 @@ function App() {
       <Todo /> */}
     </div>
   );
-}
+};
 
 export default App;

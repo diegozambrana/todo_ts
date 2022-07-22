@@ -1,18 +1,20 @@
-import styled, { css } from "styled-components";
-import { COLOR } from "../../utils/theme";
-import { Box } from "../Layout/Box";
+import styled, { css } from 'styled-components';
+import { COLOR } from '../../utils/theme';
+import { Box } from '../Layout/Box';
 
 export const Title = styled.h1`
-    color: ${COLOR.dark};
-`
+  color: ${COLOR.dark};
+`;
 
 interface TextProps {
-    bold?: boolean;
+  bold?: boolean;
 }
 
 export const Text = styled(Box)<TextProps>`
-    color: ${COLOR.text};
-    ${(props: any) => props.bold && css`
-        font-weight: bold;
+  color: ${COLOR.text};
+  ${(props: any) =>
+    props.bold &&
+    css`
+      font-weight: bold;
     `}
-`
+`;

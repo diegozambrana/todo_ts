@@ -3,10 +3,10 @@ import todoSlice from './todo';
 import authSlice from './auth';
 
 const store = configureStore({
-    reducer: {
-        todo: todoSlice,
-        auth: authSlice
-    },
+  reducer: {
+    todo: todoSlice,
+    auth: authSlice,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
