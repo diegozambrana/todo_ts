@@ -15,12 +15,14 @@ const RegisterContainer = styled.div`
 export const Register = () => {
   const registerRef = useRef<any | undefined>();
 
+  /* eslint-disable */
   const onRegister = (event: BaseSyntheticEvent) => {
     event.preventDefault();
     const formData = new FormData(registerRef.current);
     const values = Object.fromEntries(formData);
-    console.log(values);
+    // TODO: use value to made the call
   };
+  /* eslint-enable */
 
   return (
     <Container>

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { setActiveUser } from '../../redux/auth';
@@ -6,31 +6,39 @@ import { setActiveUser } from '../../redux/auth';
 import { RootState } from '../../redux/configureStore';
 import { getToken } from '../../utils/auth';
 
-export const RedirectRoute = React.memo(
-  ({ children, privatePath }: { children: any; privatePath?: boolean }) => {
-    const [loading, setLoading] = useState(true);
+interface RedirectRouteType {
+  children: any;
+  privatePath?: boolean;
+}
 
-    const dispatch = useDispatch();
-    const { activeUser } = useSelector((s: RootState) => s.auth);
-    const shouldShow = useMemo(() => {
-      if (privatePath) return activeUser;
-      return !activeUser;
-    }, [activeUser, privatePath]);
-    const redirectPath = privatePath ? '/login' : '/todo';
+export const RedirectRoute: FC<RedirectRouteType> = ({
+  children,
+  privatePath,
+}) => {
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-      const token = getToken();
-      dispatch(setActiveUser(!!token));
-      if (token) {
-        setActiveUser(true);
-      }
-      setLoading(false);
-    }, []);
+  const dispatch = useDispatch();
+  const { activeUser } = useSelector((s: RootState) => s.auth);
+  const shouldShow = useMemo(() => {
+    if (privatePath) return activeUser;
+    return !activeUser;
+  }, [activeUser, privatePath]);
+  const redirectPath = privatePath ? '/login' : '/todo';
 
-    if (loading) return <div>loading...</div>;
+  useEffect(() => {
+    const token = getToken();
+    dispatch(setActiveUser(!!token));
+    if (token) {
+      setActiveUser(true);
+    }
+    setLoading(false);
+  }, []);
 
-    if (shouldShow) return children;
+  if (loading) return <div>loading...</div>;
 
-    return <Navigate to={redirectPath} />;
-  },
-);
+  if (shouldShow) return children;
+
+  return <Navigate to={redirectPath} />;
+};
+
+RedirectRoute.defaultProps = { privatePath: false };

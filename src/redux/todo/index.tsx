@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TaskType } from '../../types/Task';
-import { getItem, saveItem } from '../../utils/localStorage';
 import { postTodo } from '../../api/useTodo';
-
-const ITEM_NAME = 'TODO_TS_REDUX';
 
 export const todoSlice = createSlice({
   name: 'todo',
@@ -35,7 +32,7 @@ export const todoSlice = createSlice({
       );
       postTodo(state.todoData);
     },
-    onCheckStep: (state: any, action: any) => {},
+    // onCheckStep: (state: any, action: any) => {},
     onAddStep: (state: any, action: any) => {
       const { idTask, newStep } = action.payload;
       state.todoData = state.todoData.map((task: TaskType) => {

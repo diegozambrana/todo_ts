@@ -14,7 +14,7 @@ function reducer(state: any, action: any) {
       throw new Error();
   }
 }
-
+/* eslint-disable */
 export const Counter = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return (

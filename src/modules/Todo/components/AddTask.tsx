@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, FC, useContext } from 'react';
+import React, { BaseSyntheticEvent, FC } from 'react';
 import styled from 'styled-components';
 import { uuid } from '../../../utils';
 import { Text } from '../../../components/text';
@@ -19,7 +19,7 @@ const AddTaskButtonContainer = styled.div`
 
 interface AddTaskType {
   onCancel(): void;
-  onAddTask(value: any): void;
+  onAddTask(value: any): void; // eslint-disable-line
 }
 
 export const AddTask: FC<AddTaskType> = ({ onCancel, onAddTask }) => {

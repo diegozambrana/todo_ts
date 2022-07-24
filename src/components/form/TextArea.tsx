@@ -16,7 +16,7 @@ const TextAreaInput: FC<any> = styled.textarea`
 
 interface TextAreaType {
   value: string;
-  onChange(value: string): void;
+  onChange(value: string): void; // eslint-disable-line
   placeholder: string;
 }
 

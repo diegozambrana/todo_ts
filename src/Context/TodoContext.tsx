@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { StepType } from '../types/Step';
 import { TaskType } from '../types/Task';
-
+/* eslint-disable */
 interface AppContextInterface {
   todoData?: TaskType[];
   [key: string]: any;

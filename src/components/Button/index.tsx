@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { COLOR } from '../../utils/theme';
 
+/* eslint-disable react/jsx-props-no-spreading */
 interface ButtonType {
   variant?: string;
   small?: boolean;
@@ -18,11 +19,10 @@ const CustomButton = styled.button`
   font-weight: bold;
   user-select: none;
   cursor: pointer;
-  ${(props: ButtonType) => css`
-    height: 2rem;
-  `}
 `;
 
 export const Button: FC<ButtonType> = ({ children, ...props }) => (
   <CustomButton {...props}>{children}</CustomButton>
 );
+
+Button.defaultProps = { variant: '', small: false };

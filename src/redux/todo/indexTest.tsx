@@ -11,7 +11,6 @@ export const todoSlice = createSlice({
       state.value -= 1;
     },
     setValue: (state: any, action: any) => {
-      console.log(`action`, action);
       state.value = action.payload;
     },
   },

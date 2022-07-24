@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../redux/configureStore';
 import { setLoading, updateTodoData } from '../redux/todo';
@@ -38,7 +37,5 @@ export const postTodo = (data: any) => {
       { json_data: JSON.stringify(data) },
       { headers },
     )
-    .then((response: any) => {})
-    .catch(() => console.log(`ERROR al cargar`))
-    .finally(() => {});
+    .catch(() => console.log(`ERROR al cargar`));
 };

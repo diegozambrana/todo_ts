@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Link as LinkBase,
-  NavLink,
   useMatch,
   useNavigate,
   useResolvedPath,
@@ -27,6 +26,8 @@ const Link = styled(LinkBase)`
   color: ${({ match }: any) => (match ? 'gray' : 'blue')};
 `;
 
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/jsx-props-no-spreading */
 export const CustomLink = ({ children, to, props }: any) => {
   const resolved = useResolvedPath(to);
   const match = useMatch({ path: resolved.pathname, end: true });

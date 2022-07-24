@@ -16,14 +16,17 @@ const InputText = styled.input`
   border-radius: 0.25rem;
 `;
 
+/* eslint-disable */
 interface InputType {
   placeholder: string;
   value?: string;
   onChange?(e: BaseSyntheticEvent): void;
   type?: string;
   errors?: string[];
+  inputProps: any;
   [key: string]: any;
 }
+/* eslint-enable */
 
 export const Input: FC<InputType> = ({
   placeholder,
@@ -39,7 +42,7 @@ export const Input: FC<InputType> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      {...inputProps}
+      {...inputProps} // eslint-disable-line
     />
     {!!errors?.length && (
       <ul>
