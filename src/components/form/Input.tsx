@@ -23,7 +23,7 @@ interface InputType {
   onChange?(e: BaseSyntheticEvent): void;
   type?: string;
   errors?: string[];
-  inputProps: any;
+  inputProps?: any;
   [key: string]: any;
 }
 /* eslint-enable */

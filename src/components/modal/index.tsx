@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 import { COLOR } from '../../utils/theme';
 
@@ -45,8 +46,11 @@ interface ModalType {
 
 export const Modal: FC<ModalType> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return <NoneBox />;
+  const el = document.getElementById('modal-root');
 
-  return (
+  if (!el) return null;
+
+  return createPortal(
     <>
       <ModaBackground onClick={onClose} />
       <ModalBox>
@@ -55,6 +59,7 @@ export const Modal: FC<ModalType> = ({ isOpen, onClose, children }) => {
           {children}
         </ModalContainer>
       </ModalBox>
-    </>
+    </>,
+    el,
   );
 };
