@@ -4,6 +4,7 @@ import { RedirectRoute } from './components/RedirectRoute';
 import { TestPost } from './components/testComponents/TestPost';
 import { Login } from './modules/auth/Login';
 import { Register } from './modules/auth/Register';
+import { TestComponent } from './modules/testComponents';
 import { Todo } from './modules/Todo/Todo';
 
 const App = () => (
@@ -35,7 +36,7 @@ const App = () => (
             </RedirectRoute>
           }
         />
-        <Route path="/test" element="TEST" />
+        <Route path="/test" element={<TestComponent />} />
         <Route path="/post/:slug" element={<TestPost />} />
         <Route
           path="*"
